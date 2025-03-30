@@ -16,6 +16,7 @@ angular-app/dist/
 
 # VSCode
 .vscode/
+.trunk/
 
 # Docker
 *.pid
