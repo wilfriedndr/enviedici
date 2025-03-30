@@ -1,0 +1,18 @@
+# Core backend
+Django>=5.0
+djangorestframework>=3.14
+psycopg2-binary>=2.9
+
+# Utils et outils
+graphviz>=0.20
+python-decouple>=3.8
+
+# Déploiement / Prod
+gunicorn>=21.2
+
+# Pour communication Angular <-> Django en local
+django-cors-headers>=4.0
+
+# Pour tâches asynchrones (plus tard)
+celery>=5.3
+redis>=5.0
