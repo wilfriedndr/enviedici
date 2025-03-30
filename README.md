@@ -121,5 +121,5 @@ Boutique angular django/
 
 ---
 
-> Projet développé par **Wilfried NIEDERHOFFER** — Concepteur développeur d'applications.
+> Projet développé par **Wilfried NIEDERHOFFER** - Concepteur développeur d'applications.
 
