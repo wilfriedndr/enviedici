@@ -1,0 +1,17 @@
+digraph ERD_Model {
+	rankdir=LR
+	Producteur [label="{Producteur|+ id : PK\l+ nom\l+ description\l+ localisation\l+ photo\l+ date_ajout\l}" shape=record]
+	Produit [label="{Produit|+ id : PK\l+ nom\l+ description\l+ prix\l+ stock_disponible\l+ photo\l+ actif\l+ date_ajout\l+ producteur_id : FK\l}" shape=record]
+	Client [label="{Client|+ id : PK\l+ nom\l+ email\l+ téléphone\l+ adresse_retrait\l+ date_inscription\l}" shape=record]
+	Commande [label="{Commande|+ id : PK\l+ client_id : FK\l+ date_commande\l+ statut\l+ total\l+ créneau_retrait_id : FK\l}" shape=record]
+	CommandeProduit [label="{CommandeProduit|+ commande_id : FK\l+ produit_id : FK\l+ quantité\l+ prix_unitaire\l}" shape=record]
+	"Créneau" [label="{Créneau|+ id : PK\l+ jour\l+ heure_debut\l+ heure_fin\l+ disponible\l+ capacité_max\l}" shape=record]
+	"PériodeFermeture" [label="{PériodeFermeture|+ id : PK\l+ date_debut\l+ date_fin\l+ motif\l}" shape=record]
+	RapportVente [label="{RapportVente|+ id : PK\l+ date_rapport\l+ date_debut\l+ date_fin\l+ total_ventes\l+ nb_commandes\l+ pdf_path\l}" shape=record]
+	Producteur -> Produit [label="1 → *"]
+	Produit -> CommandeProduit [label="1 → *"]
+	Client -> Commande [label="1 → *"]
+	Commande -> CommandeProduit [label="1 → *"]
+	Commande -> "Créneau" [label="* → 1"]
+	CommandeProduit -> Produit [label="* → 1"]
+}

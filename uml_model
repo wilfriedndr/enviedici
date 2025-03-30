@@ -1,0 +1,65 @@
+digraph UML_Model_Full {
+	rankdir=LR
+	Producteur [label="Producteur
+- id
+- nom
+- description
+- localisation
+- photo
+- date_ajout"]
+	Produit [label="Produit
+- id
+- nom
+- description
+- prix
+- stock_disponible
+- photo
+- actif
+- date_ajout
+- producteur_id"]
+	Client [label="Client
+- id
+- nom
+- email
+- téléphone
+- adresse_retrait
+- date_inscription"]
+	Commande [label="Commande
+- id
+- client_id
+- date_commande
+- statut
+- total
+- créneau_retrait_id"]
+	CommandeProduit [label="CommandeProduit
+- commande_id
+- produit_id
+- quantité
+- prix_unitaire"]
+	"Créneau" [label="Créneau
+- id
+- jour
+- heure_debut
+- heure_fin
+- disponible
+- capacité_max"]
+	"PériodeFermeture" [label="PériodeFermeture
+- id
+- date_debut
+- date_fin
+- motif"]
+	RapportVente [label="RapportVente
+- id
+- date_rapport
+- date_debut
+- date_fin
+- total_ventes
+- nb_commandes
+- pdf_path"]
+	Producteur -> Produit [label="1 → *"]
+	Produit -> CommandeProduit [label="1 → *"]
+	Client -> Commande [label="1 → *"]
+	Commande -> CommandeProduit [label="1 → *"]
+	Commande -> "Créneau" [label="* → 1"]
+	CommandeProduit -> Produit [label="* → 1"]
+}

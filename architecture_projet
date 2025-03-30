@@ -1,0 +1,34 @@
+digraph Architecture {
+	fontsize=10 rankdir=LR
+	AngularApp [label="Frontend Angular
+(vitrine + commandes)" fillcolor="#e3f2fd" shape=component style=filled]
+	DjangoAdmin [label="Frontend Django
+(portail admin)" fillcolor="#ffe0b2" shape=component style=filled]
+	DjangoAPI [label="Backend Django API
+(DRF)" fillcolor="#c8e6c9" shape=component style=filled]
+	PostgreSQL [label="PostgreSQL
+(Base de données)" fillcolor="#f8bbd0" shape=cylinder style=filled]
+	JWT [label="JWT
+(Authentication)" fillcolor="#d1c4e9" shape=note style=filled]
+	Celery [label="Celery
+(Tâches async)" fillcolor="#f0f4c3" shape=component style=filled]
+	Redis [label="Redis
+(Broker Celery)" fillcolor="#dcedc8" shape=component style=filled]
+	Docker [label="Docker
+(Conteneurisation)" fillcolor="#b3e5fc" shape=box3d style=filled]
+	Kubernetes [label="Kubernetes
+(Orchestration)" fillcolor="#b2dfdb" shape=box3d style=filled]
+	AngularApp -> DjangoAPI
+	DjangoAdmin -> DjangoAPI
+	DjangoAPI -> PostgreSQL
+	DjangoAPI -> JWT
+	DjangoAPI -> Celery
+	Celery -> Redis
+	Docker -> AngularApp
+	Docker -> DjangoAdmin
+	Docker -> DjangoAPI
+	Docker -> PostgreSQL
+	Docker -> Celery
+	Docker -> Redis
+	Kubernetes -> Docker
+}
