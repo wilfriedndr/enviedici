@@ -16,3 +16,5 @@ django-cors-headers>=4.0
 # Pour tâches asynchrones (plus tard)
 celery>=5.3
 redis>=5.0
+
+django-cors-headers

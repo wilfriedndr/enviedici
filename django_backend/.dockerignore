@@ -1,0 +1,27 @@
+# Environnement virtuel
+.env/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Fichiers et dossiers inutiles
+*.log
+*.sqlite3
+*.db
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Entrypoint en lecture seule (on garde une version propre du script)
+entrypoint.sh
