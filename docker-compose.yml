@@ -14,9 +14,9 @@ services:
       - "5432:5432"
     restart: unless-stopped
 
-  web:
+  django-app:
     build: ./django_backend
-    container_name: django_web
+    container_name: django_app
     entrypoint: ["./entrypoint.sh"]
     volumes:
       - ./django_backend:/app
@@ -37,7 +37,7 @@ services:
       - "4200:80"
     restart: unless-stopped
     depends_on:
-      - web
+      - django-app
 
 volumes:
   pgdata:
