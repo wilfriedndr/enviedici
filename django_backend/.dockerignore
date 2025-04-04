@@ -24,4 +24,4 @@ __pycache__/
 Thumbs.db
 
 # Entrypoint en lecture seule (on garde une version propre du script)
-entrypoint.sh
+# entrypoint.sh

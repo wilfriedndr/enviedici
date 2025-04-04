@@ -1,19 +1,18 @@
-# Base Python officielle (version récente)
-FROM python:3.12-slim
+FROM python:3.13-slim
 
-# Définir le dossier de travail dans le conteneur
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Copier les fichiers nécessaires
-COPY requirements.txt ./
+COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copier tout le reste du projet
 COPY . .
 
-# Exposer le port Django
+# Collecte des fichiers statiques (si tu veux que les fichiers statiques soient dispos)
+RUN python manage.py collectstatic --noinput
+
 EXPOSE 8000
 
-# Commande par défaut (modifiable via docker-compose)
-# CMD ["gunicorn", "django_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
-ENTRYPOINT ["./entrypoint.sh"]
+CMD ["gunicorn", "django_backend.wsgi:application", "--bind", "0.0.0.0:8000"]

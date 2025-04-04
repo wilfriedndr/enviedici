@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 
-# Appliquer les migrations
-echo "➤ Applying database migrations..."
-python manage.py migrate --noinput
+echo "Attente de PostgreSQL..."
 
-# Collecter les fichiers statiques
-echo "➤ Collecting static files..."
+while ! nc -z postgres 5432; do
+  sleep 1
+done
+
+echo "PostgreSQL est prêt, on lance les migrations"
+
+python manage.py migrate
 python manage.py collectstatic --noinput
-
-# Lancer Gunicorn
-echo "➤ Starting Gunicorn server..."
-exec gunicorn django_backend.wsgi:application --bind 0.0.0.0:8000
+gunicorn django_backend.wsgi:application --bind 0.0.0.0:8000

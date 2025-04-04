@@ -1,43 +1,26 @@
-version: "3.9"
+version: "3.8"
 
 services:
-  db:
-    image: postgres:15
-    container_name: postgres_db
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: enviedici
-      POSTGRES_USER: enviedici
-      POSTGRES_PASSWORD: enviedici
+  angular:
+    build:
+      context: ./angular-app
+    container_name: angular-frontend
     ports:
-      - "5432:5432"
-    restart: unless-stopped
+      - "4200:80"
+    networks:
+      - enviedici-net
 
-  django-app:
-    build: ./django_backend
-    container_name: django_app
-    entrypoint: ["./entrypoint.sh"]
-    volumes:
-      - ./django_backend:/app
-      - ./volumes/static:/app/static
-      - ./volumes/media:/app/media
+  django:
+    build:
+      context: ./django_backend
+    container_name: django-backend
     ports:
       - "8000:8000"
     env_file:
       - ./django_backend/.env
-    depends_on:
-      - db
-    restart: unless-stopped
+    networks:
+      - enviedici-net
 
-  frontend:
-    build: ./angular-app
-    container_name: angular_frontend
-    ports:
-      - "4200:80"
-    restart: unless-stopped
-    depends_on:
-      - django-app
-
-volumes:
-  pgdata:
+networks:
+  enviedici-net:
+    driver: bridge
