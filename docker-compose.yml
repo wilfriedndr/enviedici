@@ -4,7 +4,7 @@ services:
   angular:
     build:
       context: ./angular-app
-    container_name: angular-frontend
+    container_name: angular
     ports:
       - "4200:80"
     networks:
@@ -13,7 +13,7 @@ services:
   django:
     build:
       context: ./django_backend
-    container_name: django-backend
+    container_name: django
     ports:
       - "8000:8000"
     env_file:

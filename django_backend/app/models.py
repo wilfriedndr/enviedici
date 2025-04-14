@@ -1,4 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class CustomUser(AbstractUser):
+    is_client = models.BooleanField(default=False)
+    is_proprietaire = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.username
 
 class TimeStampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -44,6 +52,19 @@ class Commande(TimeStampedModel):
     statut = models.CharField(max_length=50)
     total = models.DecimalField(max_digits=10, decimal_places=2)
     créneau_retrait = models.ForeignKey(Créneau, on_delete=models.SET_NULL, null=True, related_name="commandes")
+
+    # Paiement
+    mode_paiement = models.CharField(
+        max_length=20,
+        choices=[('en_ligne', 'En ligne'), ('sur_place', 'Sur place')],
+        default='sur_place'
+    )
+    # Paiement
+    date_paiement = models.DateTimeField(null=True, blank=True)
+    # Retrait
+    date_retrait_effectif = models.DateTimeField(null=True, blank=True)
+    # PDF Facture
+    pdf_facture = models.FileField(upload_to="factures/", null=True, blank=True)
     
 class StatutCommandeHistorique(TimeStampedModel):
     commande = models.ForeignKey(Commande, on_delete=models.CASCADE, related_name="historiques_statut")
@@ -68,19 +89,4 @@ class RapportVente(TimeStampedModel):
     total_ventes = models.DecimalField(max_digits=12, decimal_places=2)
     nb_commandes = models.PositiveIntegerField()
     pdf_path = models.FileField(upload_to="rapports/")
-
-
-# Paiement
-mode_paiement = models.CharField(
-    max_length=20,
-    choices=[('en_ligne', 'En ligne'), ('sur_place', 'Sur place')],
-    default='sur_place'
-)
-date_paiement = models.DateTimeField(null=True, blank=True)
-
-# Retrait
-date_retrait_effectif = models.DateTimeField(null=True, blank=True)
-
-# PDF Facture
-pdf_facture = models.FileField(upload_to="factures/", null=True, blank=True)
 

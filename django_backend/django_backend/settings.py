@@ -19,8 +19,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'app'
+    'app',
 ]
+
+# Modèle utilisateur personnalisé
+AUTH_USER_MODEL = 'app.CustomUser'
 
 # Middleware
 MIDDLEWARE = [
@@ -104,3 +107,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
 ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
