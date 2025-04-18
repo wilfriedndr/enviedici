@@ -1,0 +1,55 @@
+/* === Responsive CSS === */
+
+/* Mobile / Tablette */
+@media screen and (max-width: 1024px) {
+    .burger {
+        display: block;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .sidebar.open {
+        display: flex;
+    }
+
+    .overlay {
+        display: none;
+    }
+
+    .overlay.show {
+        display: block;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logout-zone {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    table {
+        font-size: 0.9em;
+        overflow-x: auto;
+        display: block;
+    }
+
+    th, td {
+        white-space: nowrap;
+    }
+}
+
+/* Responsive : cacher les liens de nav classiques sur mobile/tablette */
+@media screen and (max-width: 1024px) {
+    .desktop-only {
+      display: none;
+    }
+  }

@@ -1,0 +1,33 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Modifier le producteur{% endblock %}
+
+{% block content %}
+    <h1>Modifier le producteur : {{ producteur.nom }}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Nom :</label><br>
+        <input type="text" name="nom" value="{{ producteur.nom }}" required><br><br>
+
+        <label>Description :</label><br>
+        <textarea name="description" required>{{ producteur.description }}</textarea><br><br>
+
+        <label>Localisation :</label><br>
+        <input type="text" name="localisation" value="{{ producteur.localisation }}" required><br><br>
+
+        <label>Photo actuelle :</label><br>
+        {% if producteur.photo %}
+            <img src="{{ producteur.photo.url }}" width="100"><br>
+        {% else %}
+            <em>Aucune image</em><br>
+        {% endif %}
+
+        <label>Nouvelle photo (optionnel) :</label><br>
+        <input type="file" name="photo"><br><br>
+
+        <button type="submit">Enregistrer les modifications</button>
+    </form>
+
+    <p><a href="{% url 'liste_producteurs' %}">⬅ Retour à la liste</a></p>
+{% endblock %}

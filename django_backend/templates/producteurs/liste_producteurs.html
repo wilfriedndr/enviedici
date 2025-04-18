@@ -1,0 +1,45 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Liste des producteurs{% endblock %}
+
+{% block content %}
+    <h1>Producteurs</h1>
+
+    <p><a href="{% url 'ajouter_producteur' %}">➕ Ajouter un producteur</a></p>
+
+    {% if producteurs %}
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Localisation</th>
+                    <th>Photo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in producteurs %}
+                    <tr>
+                        <td>{{ p.nom }}</td>
+                        <td>{{ p.description }}</td>
+                        <td>{{ p.localisation }}</td>
+                        <td>
+                            {% if p.photo %}
+                                <img src="{{ p.photo.url }}" alt="{{ p.nom }}" width="80">
+                            {% else %}
+                                <em>Pas d’image</em>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'modifier_producteur' p.id %}">✏️ Modifier</a>
+                            <a href="{% url 'supprimer_producteur' p.id %}">🗑️ Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun producteur trouvé.</p>
+    {% endif %}
+{% endblock %}

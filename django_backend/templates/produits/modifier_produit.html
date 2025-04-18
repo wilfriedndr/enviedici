@@ -1,0 +1,35 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Modifier un produit{% endblock %}
+
+{% block content %}
+    <h1>Modifier le produit : {{ produit.nom }}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Nom :</label><br>
+        <input type="text" name="nom" value="{{ produit.nom }}" required><br><br>
+
+        <label>Description :</label><br>
+        <textarea name="description">{{ produit.description }}</textarea><br><br>
+
+        <label>Prix (€) :</label><br>
+        <input type="number" name="prix" step="0.01" value="{{ produit.prix }}" required><br><br>
+
+        <label>Quantité en stock :</label><br>
+        <input type="number" name="quantite_stock" value="{{ produit.quantite_stock }}" required><br><br>
+
+        <label>Image actuelle :</label><br>
+        {% if produit.image %}
+            <img src="{{ produit.image.url }}" alt="{{ produit.nom }}" width="150"><br>
+        {% else %}
+            <em>Pas d’image</em><br>
+        {% endif %}
+        <label>Nouvelle image :</label><br>
+        <input type="file" name="image"><br><br>
+
+        <button type="submit">Enregistrer les modifications</button>
+    </form>
+
+    <p><a href="{% url 'gerant_produits' %}">⬅ Retour à la liste des produits</a></p>
+{% endblock %}

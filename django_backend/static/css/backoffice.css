@@ -1,0 +1,188 @@
+/* === STYLES GÉNÉRAUX === */
+body {
+    font-family: 'Merriweather', serif;
+    background-color: #F6F1EB;
+    margin: 0;
+    padding: 0;
+    color: #3E3E3E;
+}
+
+h1, h2 {
+    color: #6B4226;
+}
+
+a {
+    color: #6B4226;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #8B5E3C;
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #dad7cd;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: left;
+}
+
+thead {
+    background-color: #A3B18A;
+    color: white;
+}
+
+button, input[type="submit"] {
+    background-color: #6B4226;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #8B5E3C;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    background-color: #fff;
+    font-family: inherit;
+}
+
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+img {
+    border-radius: 6px;
+    max-height: 60px;
+    object-fit: cover;
+}
+
+/* === BARRE DE NAVIGATION === */
+.navbar {
+    background-color: #6B4226;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.navbar-title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.logout-zone {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.navbar-left,
+.navbar-right {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.nav-links a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* === BURGER MENU (mobile/tablette uniquement) === */
+.burger {
+    font-size: 28px;
+    cursor: pointer;
+    display: none; /* masqué par défaut, activé en responsive.css */
+    z-index: 1001;
+    margin-right: auto;
+}
+
+/* === SIDEBAR LATÉRAL POUR LE BURGER MENU === */
+.sidebar {
+    display: none; /* masqué par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #A3B18A;
+    padding: 60px 20px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    flex-direction: column;
+    gap: 20px;
+    transition: left 0.3s ease-in-out;
+}
+
+.sidebar.open {
+    display: flex;
+}
+
+.sidebar a {
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+/* === OVERLAY SOMBRE POUR CACHER LE CONTENU DERRIÈRE LE MENU === */
+.overlay {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.overlay.show {
+    display: block;
+}

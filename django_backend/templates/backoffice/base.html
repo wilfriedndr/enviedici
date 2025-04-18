@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/backoffice.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    <title>{% block title %}Backoffice{% endblock %}</title>
+  </head>
+
+  <body>
+    <header class="navbar">
+      <!-- Menu burger (mobile/tablette uniquement) -->
+      <div class="burger" onclick="toggleSidebar()">☰</div>
+
+      <!-- Lien de navigation (visible sur PC uniquement) -->
+      <nav class="nav-links desktop-only">
+        <a href="{% url 'backoffice_home' %}">🏠 Accueil</a>
+        <a href="{% url 'liste_producteurs' %}">🌾 Producteurs</a>
+        <a href="{% url 'gerant_produits' %}">🧺 Produits</a>
+      </nav>
+
+      <!-- Texte centré -->
+      <div class="navbar-title">Bienvenue {{ request.user.username }}</div>
+
+      <!-- Bouton de déconnexion -->
+      <div class="logout-zone">
+        <form method="post" action="{% url 'logout_gerant' %}" class="logout-form">
+          {% csrf_token %}
+          <button type="submit">⬅ Se déconnecter</button>
+        </form>
+      </div>
+    </header>
+
+    <!-- Sidebar latérale (menu burger) -->
+    <nav id="sidebar" class="sidebar">
+      <a href="{% url 'backoffice_home' %}">🏠 Accueil</a>
+      <a href="{% url 'liste_producteurs' %}">🌾 Producteurs</a>
+      <a href="{% url 'gerant_produits' %}">🧺 Produits</a>
+    </nav>
+
+    <!-- Overlay sombre -->
+    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Contenu principal -->
+    <div class="content">{% block content %}{% endblock %}</div>
+
+    <!-- Script toggle -->
+    <script>
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+        document.getElementById("overlay").classList.toggle("show");
+      }
+    </script>
+  </body>
+</html>

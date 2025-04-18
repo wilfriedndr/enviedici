@@ -1,0 +1,31 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Supprimer un producteur{% endblock %}
+
+{% block content %}
+    <h1>🗑️ Supprimer le producteur</h1>
+
+    <p>Voulez-vous vraiment supprimer le producteur <strong>{{ producteur.nom }}</strong> ?</p>
+
+    {% if produits_associes %}
+        <p style="color:darkred;">
+            ⚠ Ce producteur a <strong>{{ produits_associes|length }}</strong> produit(s) associé(s).<br>
+            Si vous continuez, tous ces produits seront également supprimés.
+        </p>
+
+        <ul>
+            {% for p in produits_associes %}
+                <li>{{ p.nom }} – {{ p.prix }}€ (stock : {{ p.stock_disponible }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="color:green;">✅ Aucun produit associé.</p>
+    {% endif %}
+
+    <form method="post" id="delete-form">
+        {% csrf_token %}
+        <input type="hidden" name="confirm" value="oui">
+        <button type="submit" style="color:red;">❌ Oui, supprimer définitivement</button>
+        <a href="{% url 'liste_producteurs' %}">⬅ Annuler</a>
+    </form>
+{% endblock %}

@@ -15,4 +15,5 @@ RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
-CMD ["gunicorn", "django_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Autorise le passage du header Authorization
+CMD ["gunicorn", "django_backend.wsgi:application", "--bind", "0.0.0.0:8000", "--env", "WSGIPassAuthorization=true"]

@@ -1,0 +1,100 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block content %}
+<h1>Liste des Produits</h1>
+
+<!-- 🔍 Barre de recherche -->
+<input type="text" id="searchInput" placeholder="🔍 Rechercher un produit..." style="width: 300px; padding: 5px; margin-bottom: 15px;">
+
+<!-- 🔽 Filtre par producteur-->
+<form method="get" style="margin-bottom: 15px;">
+    <label for="producteur">Filtrer par producteur :</label>
+    <select name="producteur">
+        <option value="">-- Tous les producteurs --</option>
+        {% for p in producteurs %}
+            <option value="{{ p.id }}" {% if producteur_id == p.id %}selected{% endif %}>{{ p.nom }}</option>
+        {% endfor %}
+    </select>
+
+    &nbsp;&nbsp;
+
+    <label for="par_page">Afficher par :</label>
+    <select name="par_page">
+        {% for option in choix_par_page %}
+            <option value="{{ option }}" {% if par_page == option %}selected{% endif %}>{{ option }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">🔄 Appliquer</button>
+</form>
+
+
+<p><a href="{% url 'ajouter_produit' %}">➕ Ajouter un produit</a></p>
+
+{% if page_obj %}
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix (€)</th>
+                <th>Stock</th>
+                <th>Producteur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in page_obj %}
+                <tr>
+                    <td>
+                        {% if produit.photo %}
+                            <img src="{{ produit.photo.url }}" alt="{{ produit.nom }}" width="60">
+                        {% else %}
+                            <em>Pas d’image</em>
+                        {% endif %}
+                    </td>
+                    <td>{{ produit.nom }}</td>
+                    <td>{{ produit.description }}</td>
+                    <td>{{ produit.prix }}</td>
+                    <td>{{ produit.stock_disponible }}</td>
+                    <td>{{ produit.producteur.nom }}</td>
+                    <td>
+                        <a href="{% url 'modifier_produit' produit.id %}">✏️ Modifier</a>
+                        <a href="{% url 'supprimer_produit_produit' produit.id %}">🗑️ Réduire la quantité</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- 📄 Pagination -->
+    <div style="margin-top: 20px;">
+        {% if page_obj.has_previous %}
+            <a href="?producteur={{ producteur_id }}&par_page={{ par_page }}&page={{ page_obj.previous_page_number }}">⬅ Précédent</a>
+        {% endif %}
+    
+        <span>Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+    
+        {% if page_obj.has_next %}
+            <a href="?producteur={{ producteur_id }}&par_page={{ par_page }}&page={{ page_obj.next_page_number }}">Suivant ➡</a>
+        {% endif %}
+    </div>    
+{% else %}
+    <p>Aucun produit pour le moment.</p>
+{% endif %}
+
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        const search = this.value.toLowerCase();
+        const rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+            const rowText = row.innerText.toLowerCase();
+            row.style.display = rowText.includes(search) ? "" : "none";
+        });
+    });
+</script>
+{% endblock %}

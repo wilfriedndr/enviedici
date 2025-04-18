@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     is_client = models.BooleanField(default=False)
-    is_proprietaire = models.BooleanField(default=False)
+    is_gerant = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username

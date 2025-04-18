@@ -1,0 +1,36 @@
+{% load custom_filters %}
+
+{% extends "backoffice/base.html" %}
+
+{% block title %}Supprimer du stock - {{ produit.nom }}{% endblock %}
+
+{% block content %}
+    <h1>Réduire ou supprimer le produit : {{ produit.nom }}</h1>
+    <p>Stock actuel : {{ produit.quantite_stock }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="quantite">Quantité à supprimer :</label><br>
+        <select name="quantite" required>
+            {% for i in 1|to:produit.quantite_stock %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+            <option value="tous">🗑️ Supprimer le produit</option>
+        </select><br><br>
+
+        <button type="submit">Valider la suppression</button>
+    </form>
+
+    <p><a href="{% url 'gerant_produits' %}">⬅ Retour à la liste des produits</a></p>
+{% endblock %}
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const select = document.querySelector('select[name="quantite"]');
+        if (select.value === "tous") {
+            const confirmDelete = confirm("⚠️ Êtes-vous sûr de vouloir supprimer complètement ce produit ?");
+            if (!confirmDelete) {
+                e.preventDefault();
+            }
+        }
+    });
+</script>

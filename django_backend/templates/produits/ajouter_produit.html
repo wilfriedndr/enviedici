@@ -1,0 +1,40 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Ajouter un produit{% endblock %}
+
+{% block content %}
+    <h1>Ajouter un produit</h1>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Nom :</label><br>
+        <input type="text" name="nom" required><br><br>
+
+        <label>Description :</label><br>
+        <textarea name="description"></textarea><br><br>
+
+        <label>Prix (€) :</label><br>
+        <input type="number" name="prix" step="0.01" required><br><br>
+
+        <label>Quantité en stock :</label><br>
+        <input type="number" name="quantite_stock" required><br><br>
+
+        <label>Producteur :</label><br>
+        <select name="producteur" required>
+            {% for producteur in producteurs %}
+                <option value="{{ producteur.id }}">{{ producteur.nom }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Image :</label><br>
+        <input type="file" name="image"><br><br>
+
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <p><a href="{% url 'gerant_produits' %}">⬅ Retour à la liste</a></p>
+{% endblock %}
