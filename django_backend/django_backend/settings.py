@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1")
 # ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost", "192.168.1.11").split(",")
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "192.168.1.11"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "192.168.1.11", "192.168.1.2", "willy-rpi"]
 
 # Applications installées
 INSTALLED_APPS = [
